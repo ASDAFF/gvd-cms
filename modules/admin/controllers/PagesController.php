@@ -2,16 +2,15 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\pages\api\PageAPI;
 use app\modules\pages\models\DataForm;
 use app\modules\pages\models\Page;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\HttpException;
 use yii\filters\VerbFilter;
-use yii\data\Pagination;
 use app\modules\admin\models\Log;
 
 
@@ -103,7 +102,7 @@ class PagesController extends Controller
     }
 
     public function actionUpdate($id) {
-        $model = Page::findOne(['page_id' => $id]);
+        $model = PageAPI::page($id);
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
@@ -148,7 +147,7 @@ class PagesController extends Controller
     }
 
     public function actionData($id) {
-        $page = Page::findOne(['page_id' => $id]);
+        $page = PageAPI::page($id);
 
 
         return $this->render('data', [
@@ -157,7 +156,7 @@ class PagesController extends Controller
     }
 
     public function actionCreateData($id) {
-        $page = Page::findOne(['page_id' => $id]);
+        $page = PageAPI::page($id);
 
         $model = new DataForm();
 
@@ -185,7 +184,7 @@ class PagesController extends Controller
     }
 
     public function actionUpdateData($id, $key) {
-        $page = Page::findOne(['page_id' => $id]);
+        $page = PageAPI::page($id);
 
         $model = new DataForm();
 
@@ -219,7 +218,7 @@ class PagesController extends Controller
     public function actionDeleteData() {
         $key = Yii::$app->request->post('key');
         $page = Yii::$app->request->post('page');
-        $item = Page::findOne(['page_id' => $page]);
+        $item = PageAPI::page($page);
         $name = $item->dataObj->{$key}->title;
         $d = ArrayHelper::toArray($item->dataObj);
         ArrayHelper::remove($d, $key);

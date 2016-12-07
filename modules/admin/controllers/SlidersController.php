@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\sliders\api\SliderAPI;
 use app\modules\sliders\models\Slider;
 use app\modules\sliders\models\SliderItem;
 use yii\helpers\ArrayHelper;
@@ -128,7 +129,7 @@ class SlidersController extends Controller
     }
 
     public function actionViewSlider($id) {
-        $slider = Slider::findOne(['slider_id' => $id]);
+        $slider = SliderAPI::slider($id);
 
         return $this->render('view_slider', [
             'slider' => $slider,

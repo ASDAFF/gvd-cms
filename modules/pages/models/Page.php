@@ -90,6 +90,26 @@ class Page extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function afterSave($insert, $changedAttributes){
+        parent::afterSave($insert, $changedAttributes);
+
+        Yii::$app->cache->delete('page_'.$this->primaryKey);
+        Yii::$app->cache->delete('page_'.$this->slug);
+    }
+
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+
+            Yii::$app->cache->delete('page_'.$this->primaryKey);
+            Yii::$app->cache->delete('page_'.$this->slug);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * @inheritdoc
      */

@@ -131,6 +131,14 @@ else {
                         <?php } ?>
                     </li>
                 <?php } ?>
+                <li> <a href="javascript:void(0)" class="menudropdown"><i class="fa fa-cubes fa-fw"></i> Элементы сайта<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <?php if (Yii::$app->getModule('sliders')->status) { ?>
+                        <li><a href="<?= Url::to(['/admin/sliders/index']) ?>">Слайдеры</a></li>
+                        <?php } ?>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
                 <li> <a href="javascript:void(0)" class="menudropdown"><i class="fa fa-male fa-fw"></i> Логи<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -232,16 +240,6 @@ else {
                                 <?php } ?>
                             </ul>
                             <!-- /.nav-third-level -->
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li> <a href="javascript:void(0)" class="menudropdown"><i class="fa fa-cubes fa-fw"></i> Элементы сайта<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <?php if (Yii::$app->getModule('sliders')->status) { ?>
-                                <a href="<?= Url::to(['/admin/sliders/index']) ?>">Слайдеры</a>
-                            <?php } ?>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
