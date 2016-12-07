@@ -62,6 +62,7 @@ class SliderItem extends \yii\db\ActiveRecord
 
         Yii::$app->cache->delete('slides_'.$this->slider_id);
         Yii::$app->cache->delete('slides_count_'.$this->slider_id);
+        Yii::$app->cache->delete('slider_'.$this->slider_id);
     }
 
     public function beforeDelete()
@@ -70,6 +71,7 @@ class SliderItem extends \yii\db\ActiveRecord
 
             Yii::$app->cache->delete('slides_'.$this->slider_id);
             Yii::$app->cache->delete('slides_count_'.$this->slider_id);
+            Yii::$app->cache->delete('slider_'.$this->slider_id);
 
             return true;
         } else {

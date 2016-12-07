@@ -42,6 +42,24 @@ class Slider extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterSave($insert, $changedAttributes){
+        parent::afterSave($insert, $changedAttributes);
+
+        Yii::$app->cache->delete('slider_'.$this->slider_id);
+    }
+
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+
+            Yii::$app->cache->delete('slider_'.$this->slider_id);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * @inheritdoc
      */
