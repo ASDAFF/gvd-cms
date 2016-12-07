@@ -125,6 +125,15 @@ class VideoController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('video_category_flash', '<strong>Категория "'.$model->title.'" успешно отредактирована.</strong>');
 
+            $log = new Log();
+            $log->action = 'update';
+            $log->user_ip = Yii::$app->request->userIP;
+            $log->user_agent = Yii::$app->request->userAgent;
+            $log->user_id = Yii::$app->user->id;
+            $log->item_id = $model->primaryKey;
+            $log->item_class = $model->className();
+            $log->save();
+
             return $this->redirect(['/admin/video/index']);
         }
 
@@ -162,6 +171,15 @@ class VideoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('video_flash'. '<strong>Видео успешно отредактировано.</strong>');
+
+            $log = new Log();
+            $log->action = 'update';
+            $log->user_ip = Yii::$app->request->userIP;
+            $log->user_agent = Yii::$app->request->userAgent;
+            $log->user_id = Yii::$app->user->id;
+            $log->item_id = $model->primaryKey;
+            $log->item_class = $model->className();
+            $log->save();
 
             return $this->redirect(['/admin/video/view-category', 'id' => $model->category_id]);
         }

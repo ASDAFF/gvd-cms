@@ -27,8 +27,13 @@ class LogBehavior extends Behavior
             case 'app\modules\video\models\Video': {
                 $this->del_name = $this->owner->title ? $this->owner->title : $this->owner->url;
 
-                $l = Log::findOne(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey]);
+                $l = Log::findOne(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey, 'action' => 'create']);
                 if ($l) {
+                    $l->item_name = $this->owner->title ? $this->owner->title : $this->owner->url;
+                    $l->save();
+                }
+                $ls = Log::findAll(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey, 'action' => 'update']);
+                foreach ($ls as $l) {
                     $l->item_name = $this->owner->title ? $this->owner->title : $this->owner->url;
                     $l->save();
                 }
