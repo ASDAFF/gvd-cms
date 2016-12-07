@@ -160,6 +160,7 @@ use yii\helpers\Html;
                         <?= Yii::$app->getModule('photo')->status &&  Yii::$app->getModule('photo')->categories ? $form->field($model, 'photoCategoryLog')->checkbox() : null ?>
                         <?= Yii::$app->getModule('photo')->status ? $form->field($model, 'photoLog')->checkbox() : null ?>
                         <?= Yii::$app->getModule('pages')->status ? $form->field($model, 'pagesLog')->checkbox() : null ?>
+                        <?= Yii::$app->getModule('sliders')->status ? $form->field($model, 'slidersLog')->checkbox() : null ?>
                     </div>
                 </div>
             </div>

@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\web\HttpException;
 use yii\filters\VerbFilter;
 use yii\data\Pagination;
+use app\modules\admin\models\Log;
 
 
 class PagesController extends Controller
@@ -107,6 +108,16 @@ class PagesController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 Yii::$app->session->setFlash('pages_flash', '<strong>Успешно отредактирована страница: </strong>"' . $model->title . '".');
+
+                $log = new Log();
+                $log->action = 'update';
+                $log->user_ip = Yii::$app->request->userIP;
+                $log->user_agent = Yii::$app->request->userAgent;
+                $log->user_id = Yii::$app->user->id;
+                $log->item_id = $model->primaryKey;
+                $log->item_class = $model->className();
+                $log->save();
+
                 return $this->redirect(['/admin/pages/index']);
             }
         }
@@ -153,6 +164,16 @@ class PagesController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->addField()) {
                 Yii::$app->session->setFlash('pages_data_flash', '<strong>Успешно добавлено поле: </strong>"' . $model->title . '".');
+
+                $log = new Log();
+                $log->action = 'update';
+                $log->user_ip = Yii::$app->request->userIP;
+                $log->user_agent = Yii::$app->request->userAgent;
+                $log->user_id = Yii::$app->user->id;
+                $log->item_id = $page->primaryKey;
+                $log->item_class = $page->className();
+                $log->save();
+
                 return $this->redirect(['/admin/pages/data', 'id' => $id]);
             }
         }
@@ -171,6 +192,16 @@ class PagesController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($model->editField()) {
                 Yii::$app->session->setFlash('pages_data_flash', '<strong>Успешно добавлено поле: </strong>"' . $model->title . '".');
+
+                $log = new Log();
+                $log->action = 'update';
+                $log->user_ip = Yii::$app->request->userIP;
+                $log->user_agent = Yii::$app->request->userAgent;
+                $log->user_id = Yii::$app->user->id;
+                $log->item_id = $page->primaryKey;
+                $log->item_class = $page->className();
+                $log->save();
+
                 return $this->redirect(['/admin/pages/data', 'id' => $id]);
             }
         }

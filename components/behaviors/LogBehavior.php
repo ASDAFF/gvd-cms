@@ -34,19 +34,27 @@ class LogBehavior extends Behavior
                 }
                 break;
             }
-            case 'app\modules\photo\models\Photo': {
-                $this->del_name = $this->insert_base64_encoded_image_src(Yii::getAlias('@webroot').$this->owner->photo);
+            case 'app\modules\photo\models\Photo':
+            case 'app\modules\sliders\models\SliderItem': {
+                if ($this->owner->photo) {
+                    $this->del_name = $this->insert_base64_encoded_image_src(Yii::getAlias('@webroot') . $this->owner->photo);
 
-                $l = Log::findOne(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey]);
-                if ($l) {
-                    $l->item_name = $this->del_name;
-                    $l->save();
+                    $l = Log::findOne(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey, 'action' => 'create']);
+                    if ($l) {
+                        $l->item_name = $this->del_name;
+                        $l->save();
+                    }
+                    $ls = Log::findAll(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey, 'action' => 'update']);
+                    foreach ($ls as $l) {
+                        $l->item_name = $this->del_name;
+                        $l->save();
+                    }
                 }
                 break;
             }
             default: {
                 $this->del_name = $this->owner->title;
-                $l = Log::findOne(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey]);
+                $l = Log::findOne(['item_class' => $this->owner->className(), 'item_id' => $this->owner->primaryKey, 'action' => 'create']);
                 if ($l) {
                     $l->item_name = $this->owner->title;
                     $l->save();

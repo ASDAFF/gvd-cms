@@ -218,6 +218,21 @@ else {
                                 <?php } ?>
                             </li>
                         <?php } ?>
+                        <li>
+                            <a href="javascript:void(0)" class="menudropdown2">Элементы сайта <span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level" style="display: none;">
+                                <?php if (Yii::$app->getModule('sliders')->status) { ?>
+                                <li>
+                                    <?php if (AccessAPI::can('slidersLog')) { ?>
+                                        <a href="<?= Url::to(['/admin/log/slider-item']) ?>">Работа со слайдами</a>
+                                    <?php } else { ?>
+                                        <a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="У вас недостаточно прав!">Работа со слайдами</a>
+                                    <?php } ?>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                            <!-- /.nav-third-level -->
+                        </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>

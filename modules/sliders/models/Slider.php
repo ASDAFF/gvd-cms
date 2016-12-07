@@ -53,4 +53,26 @@ class Slider extends \yii\db\ActiveRecord
             'title' => 'Название',
         ];
     }
+
+    public function getSlides() {
+        $slides = Yii::$app->cache->get('slides_'.$this->primaryKey);
+        if (!$slides) {
+            $slides = SliderItem::find()->where(['slider_id' => $this->primaryKey])->orderBy(['order_num' => SORT_ASC, 'slider_item_id' => SORT_ASC])->all();
+            Yii::$app->cache->set('slides_'.$this->primaryKey, $slides);
+        }
+        return $slides;
+    }
+
+    public function getCount() {
+        $count = Yii::$app->cache->get('slides_count_'.$this->primaryKey);
+        if (!$count) {
+            $count = SliderItem::find()->where(['slider_id' => $this->primaryKey])->count();
+            Yii::$app->cache->set('slides_count_'.$this->primaryKey, $count);
+        }
+        return $count;
+    }
+
+    public function getSlideByNum($num) {
+        return SliderItem::find()->where(['slider_id' => $this->primaryKey, 'order_num' =>$num])->one();
+    }
 }

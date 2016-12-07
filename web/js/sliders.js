@@ -49,26 +49,23 @@ $(document).ready(function () {
         });
     });
 
-    // УДАЛЕНИЕ ПОЛЯ
+    // УДАЛЕНИЕ СЛАЙДА
 
-    $('body').on('click', 'a[data-target=delete_pages_data_modal]', function(e) {
+    $('body').on('click', 'a[data-target=delete_slide_modal]', function(e) {
         e.preventDefault();
-        var name = $(this).attr('data-name');
-        var key = $(this).attr('data-key');
-        var page = $(this).attr('data-page');
-        $('#delete_pages_data_modal .modal-body').html(name);
-        $('#delete_pages_data_modal #delete_pages_data_button').attr('data-key', key);
-        $('#delete_pages_data_modal #delete_pages_data_button').attr('data-page', page);
-        $('#delete_pages_data_modal').modal('show');
+        var img = $(this).attr('data-img');
+        var id = $(this).attr('data-id');
+        $('#delete_slide_modal .modal-body').html('<img src="'+img+'" alt="" class="img-responsive">');
+        $('#delete_slide_modal #delete_slide_button').attr('data-id', id);
+        $('#delete_slide_modal').modal('show');
     });
 
-    $('#delete_pages_data_modal #delete_pages_data_button').click(function(e) {
+    $('#delete_slide_modal #delete_slide_button').click(function(e) {
         e.preventDefault();
-        var key = $(this).attr('data-key');
-        var page = $(this).attr('data-page');
+        var id = $(this).attr('data-id');
         $.ajax({
-            url: '/admin/pages/delete-data',
-            data: {'key': key, 'page': page},
+            url: '/admin/sliders/delete-item',
+            data: {'id': id},
             method: 'POST',
             success: function(response) {
                 location.reload();

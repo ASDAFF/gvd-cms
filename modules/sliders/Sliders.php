@@ -13,6 +13,7 @@ class Sliders extends \yii\base\Module
     public $controllerNamespace = 'app\modules\sliders\controllers';
 
     public $status;
+    public $hover_photo;
 
     /**
      * @inheritdoc

@@ -5,6 +5,7 @@ namespace app\modules\admin\models;
 use app\modules\pages\models\Page;
 use app\modules\photo\models\Photo;
 use app\modules\photo\models\PhotoCategory;
+use app\modules\sliders\models\SliderItem;
 use app\modules\video\models\VideoCategory;
 use app\modules\video\models\Video;
 use Yii;
@@ -173,6 +174,12 @@ class Log extends \yii\db\ActiveRecord
     public function getPage() {
         $page_item = Page::findOne(['page_id' => $this->item_id]);
         if ($page_item) return $page_item;
+        return null;
+    }
+
+    public function getSlide() {
+        $slide_item = SliderItem::findOne(['slider_item_id' => $this->item_id]);
+        if ($slide_item) return $slide_item;
         return null;
     }
 }

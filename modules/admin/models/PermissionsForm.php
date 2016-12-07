@@ -65,6 +65,7 @@ class PermissionsForm extends Model
     public $photoLog; // просмотр логов работы с фото
     public $photoCategoryLog; // просмотр логов работы с категориями фото
     public $pagesLog; // просмотр логов работы со страницами
+    public $slidersLog; // просмотр логов работы со слайдами
 
 
     /**
@@ -120,7 +121,8 @@ class PermissionsForm extends Model
             'videoCategoryLog' => 'Просмотр логов работы с категориями видео',
             'photoLog' => 'Просмотр логов работы с фото',
             'photoCategoryLog' => 'Просмотр логов работы с категориями фото',
-            'pagesLog' => 'Просмотр логов работы со страницами'
+            'pagesLog' => 'Просмотр логов работы со страницами',
+            'slidersLog' => 'Просмотр логов работы со слайдами'
         ];
     }
 
