@@ -132,6 +132,20 @@ use yii\helpers\Html;
                 </div>
             </div>
         <?php } ?>
+        <?php if (Yii::$app->getModule('sliders')->status) { ?>
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-cubes"></i> Слайдеры</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <?= $form->field($model, 'viewSliders')->checkbox() ?>
+                            <?= $form->field($model, 'createUpdateSliders')->checkbox() ?>
+                            <?= $form->field($model, 'deleteSliders')->checkbox() ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">

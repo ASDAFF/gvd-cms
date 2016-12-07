@@ -50,6 +50,12 @@ class PermissionsForm extends Model
     public $createUpdatePages; // добавление и редактирование страниц
     public $deletePages; // удаление страницы
 
+    // Слайдеры
+
+    public $viewSliders; // просмотр слайдеров
+    public $createUpdateSliders; // добавление и редактирование слайдов
+    public $deleteSliders; // удаление слайда
+
     // Логи
 
     public $enterLog; // просмотр логов входов в панель управления
@@ -103,6 +109,10 @@ class PermissionsForm extends Model
             'viewPages' => 'Просмотр страниц',
             'createUpdatePages' => 'Добавление и редактирование страниц',
             'deletePages' => 'Удаление страницы',
+
+            'viewSliders' => 'Просмотр слайдеров',
+            'createUpdateSliders' => 'Добавление и редактирование слайдов',
+            'deleteSliders' => 'Удаление слайда',
 
             'enterLog' => 'Просмотр логов входов в панель управления',
             'newsLog' => 'Просмотр логов работы с новостями',
