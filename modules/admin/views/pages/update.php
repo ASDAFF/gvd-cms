@@ -108,7 +108,7 @@ $this->registerCss("
             ]
         ]) ?>
 
-        <?php foreach ($model->dataObj as $key => $field) { ?>
+        <?php if ($model->dataObj) { foreach ($model->dataObj as $key => $field) { ?>
             <?= $field->type == 'string' ? $form->field($model, 'fields['.$key.']')->textInput()->label($field->title) : $form->field($model, 'fields['.$key.']')->widget(Widget::className(), [
                 'settings' => [
                     'lang' => 'ru',
@@ -123,7 +123,7 @@ $this->registerCss("
                     ]
                 ]
             ])->label($field->title) ?>
-        <?php } ?>
+        <?php }} ?>
 
         <?= SeoForm::widget(['form' => $form, 'model' => $model]);  ?>
 

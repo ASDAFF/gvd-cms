@@ -26,6 +26,9 @@ class ChangeAvatarAction extends Action
                     $name = $this->checkUniqName($name);
                     $photo->saveAs(dirname(dirname(dirname(__DIR__))) . '/web' . $this->path . $name . '.' . $photo->extension);
                     $user = User::findOne(['id' => Yii::$app->user->id]);
+
+                    if ($user->avatar != '/img/admin/default_profile.png') @unlink(Yii::getAlias('@webroot').$user->avatar);
+
                     $user->avatar = $this->path . $name . '.' . $photo->extension;
                     if (!$user->save()) $response = false;
                 }

@@ -50,6 +50,7 @@ use app\components\api\AccessAPI;
                 </tr>
                 </thead>
                 <tbody>
+                <?php if ($page->dataObj) { ?>
                 <?php $i = 1; foreach ($page->dataObj as $key => $data) { ?>
                 <tr>
                     <td><?= $i ?></td>
@@ -75,6 +76,7 @@ use app\components\api\AccessAPI;
                     </td>
                 </tr>
                 <?php $i++; } ?>
+                <?php } ?>
                 </tbody>
             </table>
             <br><br><br><br>

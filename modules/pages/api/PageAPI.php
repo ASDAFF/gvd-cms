@@ -18,4 +18,15 @@ class PageAPI extends Object
         }
         return $page;
     }
+
+    // Получение корневых Страниц
+
+    public static function rootPages() {
+        $pages = Yii::$app->cache->get('root_pages');
+        if (!$pages) {
+            $pages = Page::find()->where(['root_page_id' => null])->all();
+            Yii::$app->cache->set('root_pages', $pages);
+        }
+        return $pages;
+    }
 }

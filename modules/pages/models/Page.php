@@ -41,8 +41,11 @@ class Page extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['text', 'cover', 'photo', 'data'], 'string'],
             [['title'], 'string', 'max' => 255],
+            [['root_page_id'], 'integer'],
 
             ['fields', 'each', 'rule' => ['string']],
+
+            [['root_page_id'], 'default', 'value' => null]
         ]);
     }
 
@@ -95,6 +98,13 @@ class Page extends \yii\db\ActiveRecord
 
         Yii::$app->cache->delete('page_'.$this->primaryKey);
         Yii::$app->cache->delete('page_'.$this->slug);
+
+        if (!$this->root_page_id) {
+            Yii::$app->cache->delete('root_pages');
+        }
+        else {
+            Yii::$app->cache->delete('pages_'.$this->root_page_id);
+        }
     }
 
     public function beforeDelete()
@@ -103,6 +113,17 @@ class Page extends \yii\db\ActiveRecord
 
             Yii::$app->cache->delete('page_'.$this->primaryKey);
             Yii::$app->cache->delete('page_'.$this->slug);
+
+            if (!$this->root_page_id) {
+                Yii::$app->cache->delete('root_pages');
+            }
+            else {
+                Yii::$app->cache->delete('pages_'.$this->root_page_id);
+            }
+
+            foreach ($this->pages as $p) {
+                $p->delete();
+            }
 
             return true;
         } else {
@@ -131,5 +152,14 @@ class Page extends \yii\db\ActiveRecord
 
     public function getDataObj() {
         return json_decode($this->data);
+    }
+
+    public function getPages() {
+        $pages = Yii::$app->cache->get('pages_'.$this->primaryKey);
+        if (!$pages) {
+            $pages = Page::findAll(['root_page_id' => $this->primaryKey]);
+            Yii::$app->cache->set('pages_'.$this->primaryKey, $pages);
+        }
+        return $pages;
     }
 }

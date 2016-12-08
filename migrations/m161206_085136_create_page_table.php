@@ -15,6 +15,7 @@ class m161206_085136_create_page_table extends Migration
     {
         $this->createTable('page', [
             'page_id' => Schema::TYPE_PK,
+            'root_page_id' => Schema::TYPE_INTEGER,
             'title' => Schema::TYPE_STRING . ' NOT NULL',
             'slug' => Schema::TYPE_TEXT,
             'text' => Schema::TYPE_TEXT,

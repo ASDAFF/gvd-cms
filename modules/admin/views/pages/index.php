@@ -57,12 +57,19 @@ use app\components\api\AccessAPI;
                         <?php foreach ($pages as $key => $p) { ?>
                             <tr role="row">
                                 <td>
-                                    <?= $p->title ?>
+                                    <?= $p->pages ? '<i class="fa fa-caret-down"></i> ' : null ?><?= $p->title ?>
                                 </td>
                                 <td style="cursor: pointer;">
                                     <div class="btn-group">
                                         <button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown"> <span class="dots"></span> </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <?php if (AccessAPI::can('createUpdatePages')) { ?>
+                                                    <a href="<?= Url::to(['/admin/pages/create', 'root' => $p->page_id]) ?>">Добавить подстраницу</a>
+                                                <?php } else { ?>
+                                                    <a data-toggle="tooltip" data-placement="left" title="" data-original-title="У вас недостаточно прав!">Редактировать</a>
+                                                <?php } ?>
+                                            </li>
                                             <li>
                                                 <?php if (AccessAPI::can('createUpdatePages')) { ?>
                                                     <a href="<?= Url::to(['/admin/pages/update', 'id' => $p->page_id]) ?>">Редактировать</a>
@@ -81,6 +88,34 @@ use app\components\api\AccessAPI;
                                     </div>
                                 </td>
                             </tr>
+                            <?php foreach ($p->pages as $pp) { ?>
+                                <tr role="row">
+                                    <td style="padding-left: 30px!important;">
+                                        <?= $pp->title ?>
+                                    </td>
+                                    <td style="cursor: pointer;">
+                                        <div class="btn-group">
+                                            <button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown"> <span class="dots"></span> </button>
+                                            <ul class="dropdown-menu pull-right" role="menu">
+                                                <li>
+                                                    <?php if (AccessAPI::can('createUpdatePages')) { ?>
+                                                        <a href="<?= Url::to(['/admin/pages/update', 'id' => $pp->page_id]) ?>">Редактировать</a>
+                                                    <?php } else { ?>
+                                                        <a data-toggle="tooltip" data-placement="left" title="" data-original-title="У вас недостаточно прав!">Редактировать</a>
+                                                    <?php } ?>
+                                                </li>
+                                                <li>
+                                                    <?php if (AccessAPI::can('deletePages')) { ?>
+                                                        <a href="#delete_pages_modal" data-toggle="modal" data-target="delete_pages_modal" data-name="<?= $pp->title ?>" data-id="<?= $pp->page_id ?>">Удалить</a>
+                                                    <?php } else { ?>
+                                                        <a data-toggle="tooltip" data-placement="left" title="" data-original-title="У вас недостаточно прав!">Удалить</a>
+                                                    <?php } ?>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         <?php } ?>
                         </tbody>
                     </table>

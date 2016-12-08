@@ -79,7 +79,7 @@ class PagesController extends Controller
 
     public function actionIndex()
     {
-        $pages = Page::find()->all();
+        $pages = PageAPI::rootPages();
 
         return $this->render('index', [
             'pages' => $pages
@@ -88,6 +88,11 @@ class PagesController extends Controller
 
     public function actionCreate() {
         $model = new Page();
+
+        $root = null;
+        if (isset($_GET['root'])) {
+            $model->root_page_id = Yii::$app->request->get('root');
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
@@ -126,8 +131,10 @@ class PagesController extends Controller
         $model->seo_description = $model->seo('description');
         $model->seo_robots = $model->seo('robots');
 
-        foreach ($model->dataObj as $key => $field) {
-            $model->fields[$key] = $field->value;
+        if ($model->dataObj) {
+            foreach ($model->dataObj as $key => $field) {
+                $model->fields[$key] = $field->value;
+            }
         }
 
         return $this->render('update', [

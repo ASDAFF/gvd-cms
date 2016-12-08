@@ -89,7 +89,7 @@ use app\components\api\AccessAPI;
                                         <?php
                                             
                                         ?>
-                                        <input id="<?= $role->name ?>" data-user="<?= $u->id ?>" class="cmn-toggle cmn-toggle-round" type="checkbox"<?= $u->hasRole($role->name) ? ' checked' : null ?><?= !AccessAPI::can('changeUserRole') ? ' disabled' : null ?>>
+                                        <input id="<?= $role->name ?>" data-user="<?= $u->id ?>" class="cmn-toggle cmn-toggle-round" type="checkbox"<?= $u->hasRole($role->name) ? ' checked' : null ?><?= !AccessAPI::can('changeUserRole') ? ' disabled' : ($u->id > 1 ? null : ' disabled') ?>>
                                         <label for="<?= $role->name ?>"></label>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@ use app\components\api\AccessAPI;
                             <div class="list-group-item withswitch">
                                 <h5 class="list-group-item-heading" style="line-height: 1.8;">Активен</h5>
                                 <div class="switch">
-                                    <input id="user_status_switch" data-user="<?= $u->id ?>" class="cmn-toggle cmn-toggle-round" type="checkbox"<?= Yii::$app->user->identity->status ? ' checked' : null ?><?= !AccessAPI::can('changeUserStatus') ? ' disabled' : null ?>>
+                                    <input id="user_status_switch" data-user="<?= $u->id ?>" class="cmn-toggle cmn-toggle-round" type="checkbox"<?= Yii::$app->user->identity->status ? ' checked' : null ?><?= !AccessAPI::can('changeUserStatus') ? ' disabled' : ($u->id > 1 ? null : ' disabled') ?>>
                                     <label for="user_status_switch"></label>
                                 </div>
                             </div>

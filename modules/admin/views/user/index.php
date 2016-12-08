@@ -21,6 +21,13 @@ use app\components\api\AccessAPI;
     <li class="active">Пользователи</li>
 </ol>
 
+<?php if (Yii::$app->session->hasFlash('user_manage_flash')) { ?>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <?= Yii::$app->session->getFlash('user_manage_flash') ?>
+    </div>
+<?php } ?>
+
 <div class="row">
     <div class="col-md-12">
         <ul class="nav nav-tabs">

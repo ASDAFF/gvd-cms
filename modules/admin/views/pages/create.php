@@ -88,6 +88,8 @@ $this->registerCss("
             </div>
         </div>
 
+        <?= $form->field($model, 'root_page_id')->hiddenInput()->label(false) ?>
+
         <?= $form->field($model, 'text')->widget(Widget::className(), [
             'settings' => [
                 'lang' => 'ru',

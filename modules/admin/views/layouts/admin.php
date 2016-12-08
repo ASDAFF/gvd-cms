@@ -44,6 +44,79 @@ else {
     }
 }
 
+$this->registerCss("
+
+    @keyframes clockwise {
+      to {
+        transform: rotate(360deg) translatez(0);
+      }
+    }
+    @-webkit-keyframes clockwise {
+      to {
+        transform: rotate(360deg) translatez(0);
+      }
+    }
+    @keyframes counter-clockwise {
+      to {
+        transform: rotate(-360deg) translatez(0);
+      }
+    }
+    @-webkit-keyframes counter-clockwise {
+      to {
+        transform: rotate(-360deg) translatez(0);
+      }
+    }
+    
+    .multi {
+        width: 50px;
+        height: 50px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent rgba(229, 118, 43, 0.25) transparent rgba(229, 118, 43, 0.5);
+        border-radius: 100%;
+        animation: clockwise 1.01s linear infinite;
+        animation-play-state: running;
+        margin: auto;
+    }
+    .multi:after {
+        position: absolute;
+        display: block;
+        content: '';
+        top: 5px;
+        right: 5px;
+        height: 30px;
+        width: 30px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: rgba(229, 118, 43, 0.5) transparent transparent;
+        border-radius: 100%;
+    }
+    .multi div {
+        position: relative;
+        height: 40px;
+        width: 40px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: rgba(229, 118, 43, 0.25) transparent rgba(229, 118, 43, 0.5);
+        border-radius: 100%;
+        animation: counter-clockwise 0.49s linear infinite;
+        animation-play-state: running;
+    }
+    .multi div:after {
+        position: absolute;
+        content: '';
+        display: block;
+        top: 0;
+        right: 0;
+        height: 30px;
+        width: 30px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent rgba(229, 118, 43, 0.25);
+        border-radius: 100%;
+    }
+");
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -61,7 +134,11 @@ else {
 <?php $this->beginBody() ?>
 
 <!-- loader -->
-<div class="loader"><h1 class="loadingtext">GVDProject</h1><p>Загрузка информации...</p><br><img src="/img/admin/loader2.gif" alt=""> </div>
+<div class="loader"><h1 class="loadingtext">GVD Project</h1><p>Загрузка информации...</p><br>
+    <div class="multi">
+        <div></div>
+    </div>
+</div>
 <!-- loader ends -->
 
 <div id="wrapper">

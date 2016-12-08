@@ -70,7 +70,7 @@ use app\components\api\AccessAPI;
                                             ?>
                                         </td>
                                         <td class="center">
-                                            <?php if (!AccessAPI::can($role->name) || AccessAPI::can('root')) { ?>
+                                            <?php if ((!AccessAPI::can($role->name) && $role->name != 'root' ) || AccessAPI::can('root')) { ?>
                                                 <a href="<?= Url::to(['/admin/user/update-role', 'name' => $role->name]) ?>" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a>
                                             <?php } ?>
                                         </td>

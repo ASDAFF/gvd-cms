@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\components\api\AccessAPI;
 use app\modules\gvd_user\models\UserAvatarForm;
 use app\modules\gvd_user\models\UserDataForm;
 use yii\web\Controller;
@@ -209,36 +210,43 @@ class UserController extends Controller
 
     public function actionDelete() {
         $id = Yii::$app->request->post('id');
-        $u = User::findOne(['id' => $id]);
-        $roles = Yii::$app->authManager->getRolesByUser($id);
-        foreach ($roles as $role) {
-            $userRole = Yii::$app->authManager->getRole($role->name);
-            Yii::$app->authManager->revoke($userRole, $id);
+        if ($id != 1) {
+            $u = User::findOne(['id' => $id]);
+            $roles = Yii::$app->authManager->getRolesByUser($id);
+            foreach ($roles as $role) {
+                $userRole = Yii::$app->authManager->getRole($role->name);
+                Yii::$app->authManager->revoke($userRole, $id);
+            }
+             if ($u->delete()) Yii::$app->session->set('user_manage_flash', 'Пользователь успешно удален.');
         }
-        $u->delete();
+        else {
+            Yii::$app->session->set('user_manage_flash', 'Невозможно удалить пользователя с ролью Разработчика!');
+        }
         return $this->redirect(['index']);
     }
 
     public function actionChangeStatus() {
         $id = Yii::$app->request->post('id');
-        $u = User::findOne(['id' => $id]);
-        if ($u->status == 10) {
-            $u->status = 0;
+        if ($id != 1) {
+            $u = User::findOne(['id' => $id]);
+            if ($u->status == 10) {
+                $u->status = 0;
+            } else $u->status = 10;
+            $u->save();
         }
-        else $u->status = 10;
-        $u->save();
     }
 
     public function actionChangeRole() {
         $user = Yii::$app->request->post('user');
         $role = Yii::$app->request->post('role');
         $u = User::findOne(['id' => $user]);
-        $userRole = Yii::$app->authManager->getRole($role);
-        if ($u->hasRole($role)) {
-            Yii::$app->authManager->revoke($userRole, $user);
-        }
-        else {
-            Yii::$app->authManager->assign($userRole, $user);
+        if ($user != 1) {
+            $userRole = Yii::$app->authManager->getRole($role);
+            if ($u->hasRole($role)) {
+                Yii::$app->authManager->revoke($userRole, $user);
+            } else {
+                Yii::$app->authManager->assign($userRole, $user);
+            }
         }
     }
 
@@ -266,22 +274,25 @@ class UserController extends Controller
         $model = new PermissionsForm();
         $role = Yii::$app->authManager->getRole($name);
 
-        foreach (array_keys($model->toArray()) as $r) {
-            $model->{$r} = $this->hasAssign($role, $r);
-        }
+        if ($name != 'root' || AccessAPI::can('root')) {
 
-        if ($model->load(Yii::$app->request->post())) {
-            if (!Yii::$app->user->can($name) || Yii::$app->user->can('root')) {
-                $model->ReAssign($name);
+            foreach (array_keys($model->toArray()) as $r) {
+                $model->{$r} = $this->hasAssign($role, $r);
+            }
 
-                $upd = new UserRoleUpdation();
-                $upd->role_name = $name;
-                $upd->user_id = Yii::$app->user->id;
-                $upd->action = 'update';
-                $upd->save();
+            if ($model->load(Yii::$app->request->post())) {
+                if (!Yii::$app->user->can($name) || Yii::$app->user->can('root')) {
+                    $model->ReAssign($name);
 
-                Yii::$app->session->setFlash('updated_role', 'Права роли успешно изменены.');
-                return $this->refresh();
+                    $upd = new UserRoleUpdation();
+                    $upd->role_name = $name;
+                    $upd->user_id = Yii::$app->user->id;
+                    $upd->action = 'update';
+                    $upd->save();
+
+                    Yii::$app->session->setFlash('updated_role', 'Права роли успешно изменены.');
+                    return $this->refresh();
+                }
             }
         }
 
