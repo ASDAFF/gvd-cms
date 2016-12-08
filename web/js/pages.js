@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('#dataTables-pages').DataTable({
         responsive: true,
         pageLength:10,
+        ordering: false,
         sPaginationType: "full_numbers",
         oLanguage: {
             oPaginate: {

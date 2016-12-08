@@ -24,7 +24,7 @@ class PageAPI extends Object
     public static function rootPages() {
         $pages = Yii::$app->cache->get('root_pages');
         if (!$pages) {
-            $pages = Page::find()->where(['root_page_id' => null])->all();
+            $pages = Page::find()->where(['root_page_id' => null])->orderBy(['page_id' => SORT_ASC])->all();
             Yii::$app->cache->set('root_pages', $pages);
         }
         return $pages;
