@@ -34,4 +34,15 @@ class NewsAPI extends Object
         }
         return $pop;
     }
+
+    // Получение Новости по id или slug
+
+    public static function item($key) {
+        $item = Yii::$app->cache->get('news_item_'.$key);
+        if (!$item) {
+            $item = News::find()->where(['news_id' => $key])->orWhere(['slug' => $key])->one();
+            Yii::$app->cache->set('news_item_'.$key, $item);
+        }
+        return $item;
+    }
 }

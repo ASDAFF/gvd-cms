@@ -67,6 +67,8 @@ class News extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes){
         parent::afterSave($insert, $changedAttributes);
 
+        Yii::$app->cache->delete('news_item_'.$this->primaryKey);
+
         for ($i = 1; $i < 10; $i++) {
             Yii::$app->cache->delete('news_last_'.$i);
             Yii::$app->cache->delete('news_pop_'.$i);
@@ -83,6 +85,8 @@ class News extends \yii\db\ActiveRecord
     public function beforeDelete()
     {
         if (parent::beforeDelete()) {
+            Yii::$app->cache->delete('news_item_'.$this->primaryKey);
+
             for ($i = 1; $i < 10; $i++) {
                 Yii::$app->cache->delete('news_last_'.$i);
                 Yii::$app->cache->delete('news_pop_'.$i);
