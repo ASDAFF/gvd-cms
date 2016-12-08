@@ -6,6 +6,7 @@ use app\modules\pages\models\Page;
 use app\modules\photo\models\Photo;
 use app\modules\photo\models\PhotoCategory;
 use app\modules\sliders\models\SliderItem;
+use app\modules\text_info\models\TextInfo;
 use app\modules\video\models\VideoCategory;
 use app\modules\video\models\Video;
 use Yii;
@@ -180,6 +181,12 @@ class Log extends \yii\db\ActiveRecord
     public function getSlide() {
         $slide_item = SliderItem::findOne(['slider_item_id' => $this->item_id]);
         if ($slide_item) return $slide_item;
+        return null;
+    }
+
+    public function getTexts() {
+        $texts_item = TextInfo::findOne(['text_info_id' => $this->item_id]);
+        if ($texts_item) return $texts_item;
         return null;
     }
 }

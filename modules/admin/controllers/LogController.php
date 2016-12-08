@@ -7,6 +7,7 @@ use app\modules\pages\models\Page;
 use app\modules\photo\models\Photo;
 use app\modules\photo\models\PhotoCategory;
 use app\modules\sliders\models\SliderItem;
+use app\modules\text_info\models\TextInfo;
 use app\modules\video\models\VideoCategory;
 use app\modules\video\models\Video;
 use yii\helpers\Url;
@@ -66,6 +67,11 @@ class LogController extends Controller
                         'actions' => ['slider-item'],
                         'allow' => true,
                         'roles' => ['slidersLog']
+                    ],
+                    [
+                        'actions' => ['texts'],
+                        'allow' => true,
+                        'roles' => ['textsLog']
                     ],
 
                     [
@@ -180,6 +186,19 @@ class LogController extends Controller
         $logs = Log::find()->where(['item_class' => SliderItem::className()])->orderBy(['time' => SORT_DESC, 'log_id' => SORT_DESC])->all();
 
         return $this->render('slides', [
+            'logs' => $logs
+        ]);
+    }
+
+    public function actionTexts() {
+
+        if (!Yii::$app->getModule('texts')->status) {
+            throw new HttpException(404, 'Page not found');
+        }
+
+        $logs = Log::find()->where(['item_class' => TextInfo::className()])->orderBy(['time' => SORT_DESC, 'log_id' => SORT_DESC])->all();
+
+        return $this->render('texts', [
             'logs' => $logs
         ]);
     }

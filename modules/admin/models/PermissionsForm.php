@@ -56,6 +56,11 @@ class PermissionsForm extends Model
     public $createUpdateSliders; // добавление и редактирование слайдов
     public $deleteSliders; // удаление слайда
 
+    // Текстовая информация
+
+    public $viewTexts; // просмотр текстовой информации
+    public $updateTexts; // редактирование текстовой информации
+
     // Логи
 
     public $enterLog; // просмотр логов входов в панель управления
@@ -66,6 +71,7 @@ class PermissionsForm extends Model
     public $photoCategoryLog; // просмотр логов работы с категориями фото
     public $pagesLog; // просмотр логов работы со страницами
     public $slidersLog; // просмотр логов работы со слайдами
+    public $textsLog; // просмотр логов работы с текстовой информацией
 
 
     /**
@@ -115,6 +121,9 @@ class PermissionsForm extends Model
             'createUpdateSliders' => 'Добавление и редактирование слайдов',
             'deleteSliders' => 'Удаление слайда',
 
+            'viewTexts' => 'Просмотр текстовой информации',
+            'updateTexts' => 'Редактирование текстовой информации',
+
             'enterLog' => 'Просмотр логов входов в панель управления',
             'newsLog' => 'Просмотр логов работы с новостями',
             'videoLog' => 'Просмотр логов работы с видео',
@@ -122,7 +131,8 @@ class PermissionsForm extends Model
             'photoLog' => 'Просмотр логов работы с фото',
             'photoCategoryLog' => 'Просмотр логов работы с категориями фото',
             'pagesLog' => 'Просмотр логов работы со страницами',
-            'slidersLog' => 'Просмотр логов работы со слайдами'
+            'slidersLog' => 'Просмотр логов работы со слайдами',
+            'textsLog' => 'Просмотр логов работы с текстовой информацией'
         ];
     }
 

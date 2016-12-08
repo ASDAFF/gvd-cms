@@ -6,6 +6,7 @@ use app\modules\news\News;
 use app\modules\pages\Pages;
 use app\modules\photo\Photo;
 use app\modules\sliders\Sliders;
+use app\modules\text_info\TextInfo;
 use app\modules\video\Video;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -51,13 +52,15 @@ class SettingsController extends Controller
         $photos = ModuleSettings::findAll(['module_class' => Photo::className()]);
         $pages = ModuleSettings::findAll(['module_class' => Pages::className()]);
         $sliders = ModuleSettings::findAll(['module_class' => Sliders::className()]);
+        $texts = ModuleSettings::findAll(['module_class' => TextInfo::className()]);
 
         return $this->render('index', [
             'news' => $news,
             'videos' => $videos,
             'photos' => $photos,
             'pages' => $pages,
-            'sliders' => $sliders
+            'sliders' => $sliders,
+            'texts' => $texts
         ]);
     }
 

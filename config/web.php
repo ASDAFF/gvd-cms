@@ -28,6 +28,9 @@ $config = [
         ],
         'sliders' => [
             'class' => 'app\modules\sliders\Sliders'
+        ],
+        'texts' => [
+            'class' => 'app\modules\text_info\TextInfo'
         ]
     ],
     'components' => [

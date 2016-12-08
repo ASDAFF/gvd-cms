@@ -132,10 +132,10 @@ use yii\helpers\Html;
                 </div>
             </div>
         <?php } ?>
-        <?php if (Yii::$app->getModule('sliders')->status) { ?>
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-cubes"></i> Слайдеры</div>
+                <div class="panel-heading"><i class="fa fa-cubes"></i> Элементы сайта</div>
                 <div class="panel-body">
+                    <?php if (Yii::$app->getModule('sliders')->status) { ?>
                     <div class="form-group">
                         <div class="checkbox">
                             <?= $form->field($model, 'viewSliders')->checkbox() ?>
@@ -143,9 +143,17 @@ use yii\helpers\Html;
                             <?= $form->field($model, 'deleteSliders')->checkbox() ?>
                         </div>
                     </div>
+                    <?php } ?>
+                    <?php if (Yii::$app->getModule('texts')->status) { ?>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <?= $form->field($model, 'viewTexts')->checkbox() ?>
+                                <?= $form->field($model, 'updateTexts')->checkbox() ?>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
-        <?php } ?>
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
@@ -161,6 +169,7 @@ use yii\helpers\Html;
                         <?= Yii::$app->getModule('photo')->status ? $form->field($model, 'photoLog')->checkbox() : null ?>
                         <?= Yii::$app->getModule('pages')->status ? $form->field($model, 'pagesLog')->checkbox() : null ?>
                         <?= Yii::$app->getModule('sliders')->status ? $form->field($model, 'slidersLog')->checkbox() : null ?>
+                        <?= Yii::$app->getModule('texts')->status ? $form->field($model, 'textsLog')->checkbox() : null ?>
                     </div>
                 </div>
             </div>

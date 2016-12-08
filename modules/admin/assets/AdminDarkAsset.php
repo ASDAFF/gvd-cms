@@ -46,7 +46,8 @@ class AdminDarkAsset extends AssetBundle
         'js/video.js',
         'js/photo.js',
         'js/pages.js',
-        'js/sliders.js'
+        'js/sliders.js',
+        'js/texts.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

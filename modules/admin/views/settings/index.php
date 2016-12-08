@@ -100,6 +100,19 @@ $this->registerCss("
                                 </div>
                             </div>
                         </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordian" href="#collapseSix" aria-expanded="false" class="collapsed"><i class="fa fa-cubes fa-fw"></i>&nbsp;&nbsp;&nbsp;Текстовая информация <span class="fa fa-angle-down pull-right"></span></a> </h4>
+                            </div>
+                            <div id="collapseSix" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                <div class="panel-body">
+                                    <?php foreach ($texts as $it) { ?>
+                                        <p><input type="checkbox" class="module_setting" data-id="<?= $it->primaryKey ?>" value="<?= $it->value ?>" <?= $it->value ? 'checked' : null ?>> <?= $it->name ?></p>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- .panel-body -->

@@ -213,6 +213,9 @@ $this->registerCss("
                         <?php if (Yii::$app->getModule('sliders')->status) { ?>
                         <li><a href="<?= Url::to(['/admin/sliders/index']) ?>">Слайдеры</a></li>
                         <?php } ?>
+                        <?php if (Yii::$app->getModule('texts')->status) { ?>
+                            <li><a href="<?= Url::to(['/admin/texts/index']) ?>">Текстовая информация</a></li>
+                        <?php } ?>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
@@ -314,6 +317,15 @@ $this->registerCss("
                                         <a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="У вас недостаточно прав!">Работа со слайдами</a>
                                     <?php } ?>
                                 </li>
+                                <?php } ?>
+                                <?php if (Yii::$app->getModule('texts')->status) { ?>
+                                    <li>
+                                        <?php if (AccessAPI::can('textsLog')) { ?>
+                                            <a href="<?= Url::to(['/admin/log/texts']) ?>">Работа с текстами</a>
+                                        <?php } else { ?>
+                                            <a data-toggle="tooltip" data-placement="bottom" title="" data-original-title="У вас недостаточно прав!">Работа с текстами</a>
+                                        <?php } ?>
+                                    </li>
                                 <?php } ?>
                             </ul>
                             <!-- /.nav-third-level -->
